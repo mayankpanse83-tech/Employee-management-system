@@ -1,0 +1,87 @@
+.header{
+    width:100%;
+    height:80px;
+    background:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 25px;
+    box-shadow:0 2px 15px rgba(0,0,0,.08);
+}
+
+.header-left h1{
+    font-size:34px;
+    color:#111827;
+}
+
+.header-left span{
+    color:#2563eb;
+}
+
+.header-left p{
+    margin-top:8px;
+    color:#6b7280;
+    font-size:16px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.date-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#374151;
+    font-size:16px;
+}
+
+.notification{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    cursor:pointer;
+}
+
+.notification svg{
+    font-size:20px;
+}
+
+.badge{
+    position:absolute;
+    top:-5px;
+    right:-3px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:red;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:12px;
+}
+
+.profile-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.profile-box img{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+}
+
+.arrow{
+    color:#555;
+}
