@@ -3,7 +3,7 @@
 import React from "react";
 import "./Dashboard.css";
 import StatsCard from "./StatsCard";
-import Card from "./Card";
+import Card from "./card";
 import RecentActivity from "./RecentActivity";
 import {
   FaClipboardCheck,
