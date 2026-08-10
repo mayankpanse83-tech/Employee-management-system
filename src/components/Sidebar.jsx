@@ -44,13 +44,6 @@ function Sidebar() {
           </li>
 
           <li>
-            <NavLink to="/employees" className="menu-link">
-  <FaUsers className="icon" />
-  Employees
-</NavLink>
-          </li>
-
-          <li>
             <NavLink to="/department" className="menu-link">
   <FaClipboardList className="icon" />
   Department

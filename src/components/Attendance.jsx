@@ -1,258 +1,316 @@
 import React, { useState } from "react";
 import "./Attendance.css";
-import {
-  FaSignInAlt,
-  FaSignOutAlt,
-  FaClock,
-  FaCalendarCheck,
-  FaSearch,
-  FaDownload,
-} from "react-icons/fa";
 
 function Attendance() {
   const [checkedIn, setCheckedIn] = useState(false);
-const [checkInTime, setCheckInTime] = useState("--:--");
-const [checkOutTime, setCheckOutTime] = useState("--:--");
+  const [checkedOut, setCheckedOut] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(1);
 
-const handleCheckIn = () => {
-  const time = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const attendanceData = {
+    1: "present",
+    2: "present",
+    3: "present",
+    4: "present",
+    5: "present",
+    6: "absent",
+    7: "present",
+    8: "present",
+    9: "present",
+    10: "present",
+    11: "leave",
+    12: "leave",
+    13: "present",
+    14: "present",
+    15: "present",
+    16: "leave",
+    17: "present",
+    18: "present",
+    19: "present",
+    20: "present",
+    21: "present",
+    22: "present",
+    23: "present",
+    24: "present",
+    25: "present",
+    26: "present",
+    27: "present",
+    28: "present",
+    29: "present",
+    30: "present",
+    31: "present",
+  };
 
-  setCheckedIn(true);
-  setCheckInTime(time);
-};
+  const getStatusText = () => {
+    const status = attendanceData[selectedDate];
 
-const handleCheckOut = () => {
-  const time = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+    if (status === "present") return "Present";
+    if (status === "leave") return "Leave";
+    if (status === "absent") return "Absent";
 
-  setCheckedIn(false);
-  setCheckOutTime(time);
-};
+    return "No Record";
+  };
+
+  const handleCheckIn = () => {
+    setCheckedIn(true);
+    setCheckedOut(false);
+  };
+
+  const handleCheckOut = () => {
+    if (!checkedIn) {
+      alert("Please Check In first!");
+      return;
+    }
+
+    setCheckedOut(true);
+  };
+
+  const calendarDays = [];
+
+  for (let i = 1; i <= 31; i++) {
+    calendarDays.push(
+      <button
+        key={i}
+        className={`
+          calendar-day
+          ${attendanceData[i]}
+          ${selectedDate === i ? "selected" : ""}
+        `}
+        onClick={() => setSelectedDate(i)}
+      >
+        {i}
+      </button>
+    );
+  }
+
   return (
     <div className="attendance-page">
 
-      {/* Page Header */}
+      {/* HEADER */}
 
-      <div className="page-header">
+      <div className="attendance-header">
         <div>
           <h1>Attendance</h1>
-          <p>Manage employee attendance records</p>
+          <p>
+            Track your attendance and working hours
+          </p>
         </div>
 
-        <button className="export-btn">
-          <FaDownload /> Export Report
-        </button>
+        <div className="header-actions">
+          <button className="today-btn">
+            📅 August 2026
+          </button>
+
+          <button className="notification-btn">
+            🔔
+          </button>
+        </div>
       </div>
 
-      {/* Today's Attendance */}
-<div className="attendance-top">
+      {/* TOP CARDS */}
 
-  <div>
-    <h2>Today's Attendance</h2>
+      <div className="attendance-cards">
 
-    <span className={checkedIn ? "status present" : "status leave"}>
-      {checkedIn ? "Present" : "Not Checked In"}
-    </span>
-  </div>
+        <div className="attendance-card">
+          <div className="card-icon blue">
+            🕐
+          </div>
 
-  {!checkedIn ? (
-    <button className="checkin-btn" onClick={handleCheckIn}>
-      Check In
-    </button>
-  ) : (
-    <button className="checkout-btn" onClick={handleCheckOut}>
-      Check Out
-    </button>
-  )}
-
-</div>
-<div className="attendance-info">
-
-  <div className="info-box">
-    <h4>Check In</h4>
-    <p>{checkInTime}</p>
-  </div>
-
-  <div className="info-box">
-    <h4>Working Hours</h4>
-    <p>08h 30m</p>
-  </div>
-
-  <div className="info-box">
-    <h4>Check Out</h4>
-    <p>{checkOutTime}</p>
-  </div>
-
-</div>
-
-      {/* Summary Cards */}
-
-      <div className="summary-grid">
-
-        <div className="summary-card">
-          <h3>Present</h3>
-          <h2>22</h2>
-          <span>This Month</span>
+          <div>
+            <span>Today's Status</span>
+            <strong>{getStatusText()}</strong>
+            <small>01 August 2026</small>
+          </div>
         </div>
 
-        <div className="summary-card">
-          <h3>Absent</h3>
-          <h2>1</h2>
-          <span>This Month</span>
+        <div className="attendance-card">
+          <div className="card-icon green">
+            ✓
+          </div>
+
+          <div>
+            <span>Check In</span>
+            <strong>
+              {checkedIn ? "09:00 AM" : "--:--"}
+            </strong>
+            <small>Office Time</small>
+          </div>
         </div>
 
-        <div className="summary-card">
-          <h3>Leave</h3>
-          <h2>2</h2>
-          <span>This Month</span>
+        <div className="attendance-card">
+          <div className="card-icon orange">
+            ↪
+          </div>
+
+          <div>
+            <span>Check Out</span>
+            <strong>
+              {checkedOut ? "06:00 PM" : "--:--"}
+            </strong>
+            <small>Office Time</small>
+          </div>
         </div>
 
-        <div className="summary-card">
-          <h3>Late Entry</h3>
-          <h2>1</h2>
-          <span>This Month</span>
+        <div className="attendance-card">
+          <div className="card-icon purple">
+            ⏱
+          </div>
+
+          <div>
+            <span>Working Hours</span>
+            <strong>
+              {checkedOut ? "9h 00m" : "0h 00m"}
+            </strong>
+            <small>Today's working time</small>
+          </div>
         </div>
 
       </div>
 
-      {/* Search */}
+      {/* CHECK IN SECTION */}
 
-      <div className="search-bar">
+      <div className="check-section">
 
-        <div className="search-box">
-          <FaSearch />
-          <input
-            type="text"
-            placeholder="Search attendance..."
-          />
+        <div>
+          <h2>Today's Attendance</h2>
+
+          <p>
+            {checkedIn
+              ? checkedOut
+                ? "You have completed today's attendance."
+                : "You are currently working."
+              : "You have not checked in yet."}
+          </p>
         </div>
 
-        <select>
-          <option>All Employees</option>
-          <option>Present</option>
-          <option>Absent</option>
-          <option>Leave</option>
-        </select>
+        <div className="check-buttons">
+
+          <button
+            className="check-in"
+            onClick={handleCheckIn}
+            disabled={checkedIn}
+          >
+            ✓ Check In
+          </button>
+
+          <button
+            className="check-out"
+            onClick={handleCheckOut}
+            disabled={checkedOut}
+          >
+            ↪ Check Out
+          </button>
+
+        </div>
 
       </div>
 
-      {/* Part 2 yahan se start hoga */}
-            {/* Weekly Working Hours */}
+      {/* MAIN CONTENT */}
 
       <div className="attendance-grid">
 
-        <div className="chart-card">
+        {/* WEEKLY HOURS */}
 
-          <div className="card-header">
-            <h3>Weekly Working Hours</h3>
+        <div className="weekly-box">
+
+          <div className="box-header">
+            <h2>Weekly Working Hours</h2>
 
             <select>
               <option>This Week</option>
+              <option>Last Week</option>
+              <option>This Month</option>
             </select>
           </div>
 
           <div className="chart">
 
-            <div className="bar">
-              <div className="fill" style={{ height: "75%" }}></div>
-              <span>Mon</span>
-            </div>
+            {[
+              ["Mon", 70],
+              ["Tue", 85],
+              ["Wed", 75],
+              ["Thu", 92],
+              ["Fri", 80],
+              ["Sat", 60],
+              ["Sun", 0],
+            ].map(([day, value]) => (
 
-            <div className="bar">
-              <div className="fill" style={{ height: "90%" }}></div>
-              <span>Tue</span>
-            </div>
+              <div className="bar-column" key={day}>
 
-            <div className="bar">
-              <div className="fill" style={{ height: "80%" }}></div>
-              <span>Wed</span>
-            </div>
+                <div className="bar-background">
 
-            <div className="bar">
-              <div className="fill" style={{ height: "100%" }}></div>
-              <span>Thu</span>
-            </div>
+                  <div
+                    className="bar"
+                    style={{
+                      height: `${value}%`,
+                    }}
+                  ></div>
 
-            <div className="bar">
-              <div className="fill" style={{ height: "85%" }}></div>
-              <span>Fri</span>
-            </div>
+                </div>
 
-            <div className="bar">
-              <div className="fill" style={{ height: "60%" }}></div>
-              <span>Sat</span>
-            </div>
+                <span>{day}</span>
 
-            <div className="bar">
-              <div className="fill" style={{ height: "0%" }}></div>
-              <span>Sun</span>
-            </div>
+              </div>
+
+            ))}
 
           </div>
 
         </div>
 
-        {/* Calendar */}
+        {/* CALENDAR */}
 
-        <div className="calendar-card">
+        <div className="calendar-box">
 
-          <div className="card-header">
-            <h3>August 2026</h3>
+          <div className="box-header">
+
+            <button className="arrow">
+              ‹
+            </button>
+
+            <h2>August 2026</h2>
+
+            <button className="arrow">
+              ›
+            </button>
+
+          </div>
+
+          <div className="week-days">
+
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+
           </div>
 
           <div className="calendar">
 
-            <div>Sun</div>
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
+            {calendarDays}
 
-            <span></span>
-            <span></span>
+          </div>
 
-            <span className="present-day">1</span>
-            <span className="present-day">2</span>
-            <span className="present-day">3</span>
-            <span className="present-day">4</span>
-            <span className="present-day">5</span>
+          {/* LEGEND */}
 
-            <span className="present-day">6</span>
-            <span className="present-day">7</span>
-            <span className="present-day">8</span>
-            <span className="present-day">9</span>
-            <span className="present-day">10</span>
-            <span className="leave-day">11</span>
-            <span className="leave-day">12</span>
+          <div className="legend">
 
-            <span className="present-day">13</span>
-            <span className="present-day">14</span>
-            <span className="present-day">15</span>
-            <span className="absent-day">16</span>
-            <span className="present-day">17</span>
-            <span className="present-day">18</span>
-            <span className="present-day">19</span>
+            <div>
+              <span className="legend-dot present-dot"></span>
+              Present
+            </div>
 
-            <span className="present-day">20</span>
-            <span className="present-day">21</span>
-            <span className="present-day active-day">22</span>
-            <span className="present-day">23</span>
-            <span className="present-day">24</span>
-            <span className="present-day">25</span>
-            <span className="present-day">26</span>
+            <div>
+              <span className="legend-dot leave-dot"></span>
+              Leave
+            </div>
 
-            <span className="present-day">27</span>
-            <span className="present-day">28</span>
-            <span className="present-day">29</span>
-            <span className="present-day">30</span>
-            <span className="present-day">31</span>
+            <div>
+              <span className="legend-dot absent-dot"></span>
+              Absent
+            </div>
 
           </div>
 
@@ -260,24 +318,23 @@ const handleCheckOut = () => {
 
       </div>
 
-      {/* Part 3 yahan se start hoga */}
-            {/* Attendance History + Timeline */}
+      {/* LOWER SECTION */}
 
-      <div className="bottom-grid">
+      <div className="lower-grid">
 
-        {/* Attendance History */}
+        {/* HISTORY */}
 
-        <div className="history-card">
+        <div className="history-box">
 
-          <div className="card-header">
-            <h3>Attendance History</h3>
+          <div className="box-header">
+            <h2>Attendance History</h2>
 
             <button className="view-btn">
               View All
             </button>
           </div>
 
-          <table className="attendance-table">
+          <table>
 
             <thead>
               <tr>
@@ -292,10 +349,10 @@ const handleCheckOut = () => {
             <tbody>
 
               <tr>
-                <td>26 Aug 2026</td>
-                <td>09:15 AM</td>
-                <td>06:30 PM</td>
-                <td>09h 15m</td>
+                <td>01 Aug 2026</td>
+                <td>09:00 AM</td>
+                <td>06:00 PM</td>
+                <td>9h</td>
                 <td>
                   <span className="status present">
                     Present
@@ -304,10 +361,10 @@ const handleCheckOut = () => {
               </tr>
 
               <tr>
-                <td>25 Aug 2026</td>
-                <td>09:05 AM</td>
-                <td>06:20 PM</td>
-                <td>09h 10m</td>
+                <td>31 Jul 2026</td>
+                <td>09:10 AM</td>
+                <td>06:05 PM</td>
+                <td>8h 55m</td>
                 <td>
                   <span className="status present">
                     Present
@@ -316,22 +373,10 @@ const handleCheckOut = () => {
               </tr>
 
               <tr>
-                <td>24 Aug 2026</td>
-                <td>09:40 AM</td>
-                <td>06:15 PM</td>
-                <td>08h 35m</td>
-                <td>
-                  <span className="status late">
-                    Late
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <td>23 Aug 2026</td>
+                <td>30 Jul 2026</td>
                 <td>--</td>
                 <td>--</td>
-                <td>0h</td>
+                <td>--</td>
                 <td>
                   <span className="status leave">
                     Leave
@@ -345,48 +390,62 @@ const handleCheckOut = () => {
 
         </div>
 
-        {/* Today's Timeline */}
+        {/* TIMELINE */}
 
-        <div className="timeline-card">
+        <div className="timeline-box">
 
-          <h3>Today's Timeline</h3>
+          <h2>Today's Timeline</h2>
 
           <div className="timeline">
 
             <div className="timeline-item">
-              <div className="dot green"></div>
+
+              <span className="timeline-dot green-dot"></span>
 
               <div>
-                <h4>09:15 AM</h4>
+                <strong>
+                  {checkedIn ? "09:00 AM" : "--:--"}
+                </strong>
+
                 <p>Checked In</p>
               </div>
+
             </div>
 
             <div className="timeline-item">
-              <div className="dot orange"></div>
+
+              <span className="timeline-dot blue-dot"></span>
 
               <div>
-                <h4>01:00 PM</h4>
+                <strong>01:00 PM</strong>
                 <p>Lunch Break</p>
               </div>
+
             </div>
 
             <div className="timeline-item">
-              <div className="dot blue"></div>
+
+              <span className="timeline-dot orange-dot"></span>
 
               <div>
-                <h4>01:30 PM</h4>
-                <p>Back To Work</p>
+                <strong>01:45 PM</strong>
+                <p>Back to Work</p>
               </div>
+
             </div>
 
             <div className="timeline-item">
-              <div className="dot gray"></div>
+
+              <span className="timeline-dot red-dot"></span>
 
               <div>
-                <h4>06:30 PM</h4>
+                <strong>
+                  {checkedOut ? "06:00 PM" : "--:--"}
+                </strong>
+
                 <p>Checked Out</p>
               </div>
+
             </div>
 
           </div>

@@ -42,6 +42,11 @@ function App() {
             element={<DailyUpdates />}
           />
 
+          <Route
+            path="/tasks"
+            element={<Tasks />}
+          />
+
         </Routes>
 
       </div>

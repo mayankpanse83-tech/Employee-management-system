@@ -865,3 +865,410 @@
   }
 
 }
+/* =========================
+   CUSTOM POPUP
+========================= */
+
+.custom-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.custom-popup {
+  width: 400px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: popupShow 0.2s ease;
+}
+
+@keyframes popupShow {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.popup-close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.popup-icon {
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.success-popup {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.error-popup {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.custom-popup h2 {
+  margin: 0 0 10px;
+  color: #1e293b;
+}
+
+.custom-popup p {
+  white-space: pre-line;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.popup-ok-btn {
+  border: none;
+  background: #4f46e5;
+  color: white;
+  padding: 11px 35px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.popup-ok-btn:hover {
+  background: #4338ca;
+}
+
+
+/* =========================
+   ADD TASK POPUP
+========================= */
+
+.task-popup {
+  width: 430px;
+  background: white;
+  border-radius: 18px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: popupShow 0.2s ease;
+}
+
+.task-popup h2 {
+  margin: 0 0 6px;
+  color: #1e293b;
+}
+
+.task-popup p {
+  margin: 0 0 20px;
+  color: #64748b;
+}
+
+.task-popup input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  border: 1px solid #dbe2ea;
+  border-radius: 9px;
+  outline: none;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.task-popup input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.task-popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-popup-btn {
+  padding: 10px 18px;
+  border: 1px solid #dbe2ea;
+  background: white;
+  color: #475569;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.add-popup-btn {
+  padding: 10px 18px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.add-popup-btn:hover {
+  background: #4338ca;
+}
+.date-picker-wrapper {
+  position: relative;
+}
+
+.daily-date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 220px;
+
+  padding: 11px 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  color: #1e293b;
+}
+
+.daily-date:hover {
+  border-color: #6366f1;
+}
+
+.daily-date svg {
+  color: #1e293b;
+}
+
+.daily-date span:nth-child(2) {
+  flex: 1;
+  text-align: left;
+}
+
+.date-arrow {
+  font-size: 15px;
+}
+
+
+/* =========================
+   CALENDAR POPUP
+========================= */
+
+.calendar-popup {
+  position: absolute;
+
+  top: calc(100% + 8px);
+  right: 0;
+
+  width: 300px;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+
+  padding: 16px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+
+  z-index: 1000;
+}
+
+
+/* Header */
+
+.calendar-popup-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.calendar-popup-header strong {
+  font-size: 15px;
+}
+
+.calendar-popup-header button {
+  width: 32px;
+  height: 32px;
+
+  border: none;
+
+  background: #f1f5f9;
+
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  font-size: 20px;
+}
+
+.calendar-popup-header button:hover {
+  background: #e2e8f0;
+}
+
+
+/* Weekdays */
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 5px;
+
+  text-align: center;
+}
+
+.calendar-weekdays {
+  margin-bottom: 8px;
+}
+
+.calendar-weekdays span {
+  font-size: 11px;
+
+  font-weight: 600;
+
+  color: #64748b;
+}
+
+
+/* Days */
+
+.calendar-days button {
+  width: 34px;
+  height: 34px;
+
+  border: none;
+
+  background: transparent;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-size: 13px;
+
+  color: #334155;
+}
+
+.calendar-days button:hover {
+  background: #eef2ff;
+}
+
+
+/* Selected Date */
+
+.calendar-days .calendar-selected {
+  background: #4f46e5;
+
+  color: white;
+
+  font-weight: 600;
+}
+
+.calendar-days .calendar-selected:hover {
+  background: #4338ca;
+}
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #e1e5ee;
+  border-bottom: none;
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+}
+
+.editor-toolbar select {
+  height: 30px;
+  border: 1px solid #d9dee8;
+  border-radius: 4px;
+  padding: 0 8px;
+  background: white;
+  cursor: pointer;
+}
+
+.editor-toolbar button {
+  width: 32px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #222;
+}
+
+.editor-toolbar button:hover {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 22px;
+  background: #d9dee8;
+  margin: 0 5px;
+}
+
+.work-editor {
+  min-height: 150px;
+  border: 1px solid #e1e5ee;
+  border-radius: 0 0 8px 8px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  outline: none;
+  background: white;
+}
+
+.work-editor:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.08);
+}
+
+.work-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.character-count {
+  text-align: right;
+  color: #9ca3af;
+  font-size: 11px;
+  margin-top: 5px;
+}
