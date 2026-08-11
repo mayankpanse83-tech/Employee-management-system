@@ -9,6 +9,7 @@ import Attendance from "./components/Attendance";
 import Employees from "./components/Employees";
 import DailyUpdates from "./components/DailyUpdates";
 import Tasks from "./components/Tasks";
+import Leave from "./components/Leave";
 
 function App() {
   return (
@@ -45,6 +46,11 @@ function App() {
           <Route
             path="/tasks"
             element={<Tasks />}
+          />
+
+          <Route
+            path="/leave"
+            element={<Leave />}
           />
 
         </Routes>
