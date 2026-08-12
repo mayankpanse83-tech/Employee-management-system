@@ -10,6 +10,7 @@ import Employees from "./components/Employees";
 import DailyUpdates from "./components/DailyUpdates";
 import Tasks from "./components/Tasks";
 import Leave from "./components/Leave";
+import Salary from "./components/Salary";
 
 function App() {
   return (
@@ -51,6 +52,11 @@ function App() {
           <Route
             path="/leave"
             element={<Leave />}
+          />
+
+          <Route
+            path="/salary"
+            element={<Salary />}
           />
 
         </Routes>
