@@ -161,3 +161,39 @@
     background:#2f6bff;
     border-radius:10px;
 }
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 338px;
+  height: 100vh;
+
+  background: #071a3a;
+
+  z-index: 9999;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 338px;
+  height: 100vh;
+
+  background: #071a3a;
+  z-index: 2000;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Scrollbar hide */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
