@@ -86,6 +86,13 @@ Leave
           </li>
 
           <li>
+            <NavLink to="/profile" className="menu-link">
+  <FaClipboardList className="icon" />
+  Profile
+</NavLink>
+          </li>
+
+          <li>
             <NavLink to="/setting" className="menu-link">
   <FaClipboardList className="icon" />
   Setting

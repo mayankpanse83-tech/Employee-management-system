@@ -9,6 +9,8 @@ import Attendance from "./components/Attendance";
 import Salary from "./components/Salary";
 import Leave from "./components/Leave";
 import Reports from "./components/Reports";
+import DailyUpdates from "./components/DailyUpdates";
+import Profile from "./components/Profile";
 
 import "./App.css";
 
@@ -31,8 +33,10 @@ function Layout() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/salary" element={<Salary />} />
+            <Route path="/daily-updates" element={<DailyUpdates />} />
             <Route path="/leave" element={<Leave />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
 
