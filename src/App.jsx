@@ -11,6 +11,8 @@ import Leave from "./components/Leave";
 import Reports from "./components/Reports";
 import DailyUpdates from "./components/DailyUpdates";
 import Profile from "./components/Profile";
+import Login from "./components/Login";
+import AccountActivation from "./components/AccountActivation";
 
 import "./App.css";
 
@@ -37,6 +39,11 @@ function Layout() {
             <Route path="/leave" element={<Leave />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+          path="/account-activation"
+          element={<AccountActivation />}
+        />
           </Routes>
         </main>
 
@@ -50,6 +57,7 @@ function App() {
     <BrowserRouter>
       <Layout />
     </BrowserRouter>
+
   );
 }
 
