@@ -742,3 +742,403 @@
     right: 15px;
   }
 }
+/* =========================================
+   LOGIN RESPONSIVE
+========================================= */
+
+@media screen and (max-width: 900px) {
+
+  .login-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .login-left,
+  .login-right {
+    width: 100%;
+  }
+
+  .login-left {
+    min-height: auto;
+  }
+
+  .left-content {
+    padding: 35px 25px;
+  }
+
+  .login-right {
+    padding: 45px 20px 70px;
+  }
+
+  .login-card {
+    width: min(405px, 100%);
+  }
+
+  .login-footer {
+    position: static;
+    margin-top: 25px;
+  }
+}
+
+
+/* =========================================
+   MOBILE LOGIN
+========================================= */
+
+@media screen and (max-width: 600px) {
+
+  .login-page {
+    min-height: 100vh;
+    width: 100%;
+    background: #f8f9fd;
+  }
+
+
+  /* Mobile par left promotional section hide */
+
+  .login-left {
+    display: none !important;
+  }
+
+
+  /* Login section full screen */
+
+  .login-right {
+    width: 100% !important;
+    min-height: 100vh !important;
+
+    padding: 65px 14px 25px !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    background: #f8f9fd;
+  }
+
+
+  /* Language */
+
+  .language-wrapper {
+    top: 14px !important;
+    right: 14px !important;
+  }
+
+  .language-select {
+    height: 32px !important;
+    font-size: 11px !important;
+    padding: 0 9px !important;
+  }
+
+
+  /* Login card */
+
+  .login-card {
+    width: 100% !important;
+    max-width: 380px !important;
+
+    padding: 22px 18px !important;
+
+    border-radius: 14px !important;
+
+    box-shadow: 0 6px 25px rgba(28, 35, 65, 0.08);
+  }
+
+
+  /* Lock */
+
+  .lock-circle {
+    width: 55px !important;
+    height: 55px !important;
+
+    margin-bottom: 10px !important;
+
+    font-size: 22px !important;
+  }
+
+
+  /* Heading */
+
+  .login-card h2 {
+    font-size: 20px !important;
+  }
+
+  .login-subtitle {
+    font-size: 11px !important;
+
+    margin: 6px 0 20px !important;
+  }
+
+
+  /* Input */
+
+  .input-group {
+    margin-bottom: 13px !important;
+  }
+
+  .input-group label {
+    font-size: 11px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .input-box {
+    height: 40px !important;
+    padding: 0 10px !important;
+    gap: 8px !important;
+  }
+
+  .input-box > svg {
+    font-size: 13px !important;
+  }
+
+  .input-box input {
+    font-size: 11px !important;
+  }
+
+
+  /* Remember / Forgot */
+
+  .login-options {
+    margin: 4px 0 14px !important;
+  }
+
+  .remember {
+    font-size: 10px !important;
+  }
+
+  .forgot-btn {
+    font-size: 10px !important;
+  }
+
+
+  /* Message */
+
+  .login-message {
+    font-size: 10px !important;
+    padding: 8px !important;
+  }
+
+
+  /* Sign in */
+
+  .signin-btn {
+    height: 40px !important;
+    font-size: 12px !important;
+  }
+
+
+  /* OR */
+
+  .or-divider {
+    margin: 15px 0 !important;
+  }
+
+
+  /* Secure */
+
+  .secure-box {
+    padding: 9px !important;
+    gap: 8px !important;
+  }
+
+  .secure-icon {
+    width: 27px !important;
+    height: 27px !important;
+    min-width: 27px !important;
+    font-size: 11px !important;
+  }
+
+  .secure-box strong {
+    font-size: 10px !important;
+  }
+
+  .secure-box p {
+    font-size: 8px !important;
+  }
+
+
+  /* Contact HR */
+
+  .access-help {
+    margin-top: 12px !important;
+  }
+
+  .access-help p {
+    font-size: 9px !important;
+  }
+
+  .access-help button {
+    font-size: 10px !important;
+  }
+
+
+  /* Footer */
+
+  .login-footer {
+    width: 95% !important;
+
+    margin-top: 18px !important;
+
+    font-size: 8px !important;
+  }
+
+
+  /* Modal */
+
+  .modal-box {
+    width: calc(100% - 28px) !important;
+
+    max-width: 370px !important;
+
+    padding: 22px 18px !important;
+  }
+
+  .modal-box h2 {
+    font-size: 19px !important;
+  }
+
+  .modal-box > p {
+    font-size: 10px !important;
+  }
+
+  .hr-details div {
+    font-size: 10px !important;
+  }
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media screen and (max-width: 380px) {
+
+  .login-right {
+    padding: 60px 10px 20px !important;
+  }
+
+  .login-card {
+    padding: 18px 14px !important;
+  }
+
+  .login-card h2 {
+    font-size: 18px !important;
+  }
+
+  .login-subtitle {
+    font-size: 10px !important;
+  }
+
+  .input-box {
+    height: 38px !important;
+  }
+
+  .signin-btn {
+    height: 38px !important;
+  }
+}
+/* =========================================
+   LEFT SIDE FONT SIZE
+========================================= */
+
+@media screen and (min-width: 901px) {
+
+  /* WorkForce */
+  .login-left .brand span {
+    font-size: 34px !important;
+  }
+
+  /* Badge */
+  .login-left .system-badge {
+    font-size: 14px !important;
+  }
+
+  /* Main Heading */
+  .login-left h1 {
+    font-size: 42px !important;
+    line-height: 1.08 !important;
+  }
+
+  /* Description */
+  .login-left .description {
+    font-size: 17px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Feature Title */
+  .login-left .feature strong {
+    font-size: 15px !important;
+  }
+
+  /* Feature Description */
+  .login-left .feature p {
+    font-size: 12px !important;
+  }
+
+  /* Trusted text */
+  .login-left .trusted {
+    font-size: 12px !important;
+  }
+}
+/* =========================================
+   LEFT CONTENT - FINAL POSITION
+========================================= */
+
+@media screen and (min-width: 901px) {
+
+  /* Left section ko normal position par rakho */
+  .login-left {
+    position: relative !important;
+    transform: none !important;
+    z-index: 2;
+  }
+
+  /* Content ko left ki empty space me lao */
+  .login-left .left-content {
+    margin-left: 0px !important;
+    margin-right: 10px !important;
+    padding-left: 0 !important;
+    padding-right: 25px !important;
+    max-width: 650px;
+  }
+
+  /* Brand */
+  .login-left .brand {
+    margin-bottom: 28px;
+  }
+
+  /* Heading */
+  .login-left h1 {
+    font-size: 42px !important;
+    line-height: 1.08 !important;
+  }
+
+  /* Description */
+  .login-left .description {
+    font-size: 17px !important;
+  }
+
+  /* Features */
+  .login-left .feature strong {
+    font-size: 15px !important;
+  }
+
+  .login-left .feature p {
+    font-size: 12px !important;
+  }
+
+  /* Illustration */
+  .login-left .illustration {
+    width: 100%;
+  }
+}
+/* Welcome Back Heading */
+@media screen and (min-width: 901px) {
+  .login-card h2 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+  }
+}
