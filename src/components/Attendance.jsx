@@ -49,6 +49,9 @@ const formatTopDate = (date) => {
   const [workingSeconds, setWorkingSeconds] = useState(
     Number(localStorage.getItem("workingSeconds")) || 0
   );
+  const [attendanceSessions, setAttendanceSessions] = useState(
+  JSON.parse(localStorage.getItem("attendanceSessions")) || []
+);
 
   // =========================
   // MONTH NAMES
@@ -217,101 +220,89 @@ const formatTopDate = (date) => {
   };
 
   // =========================
-  // CHECK IN
-  // =========================
+// CHECK IN
+// =========================
 
-  const handleCheckIn = () => {
-    if (checkInTime) {
-      alert("You are already checked in!");
-      return;
-    }
+const handleCheckIn = () => {
+  if (checkInTime && !checkOutTime) {
+    alert("You are already checked in!");
+    return;
+  }
 
-    const now = new Date().toISOString();
+  const now = new Date().toISOString();
 
-    setCheckInTime(now);
-    setCheckOutTime("");
-    setWorkingSeconds(0);
+  setCheckInTime(now);
+  setCheckOutTime("");
+  setWorkingSeconds(0);
 
-    localStorage.setItem(
-      "checkInTime",
-      now
-    );
+  localStorage.setItem("checkInTime", now);
+  localStorage.removeItem("checkOutTime");
+  localStorage.setItem("workingSeconds", "0");
+};
 
-    localStorage.removeItem(
-      "checkOutTime"
-    );
 
-    localStorage.setItem(
-      "workingSeconds",
-      "0"
-    );
+// =========================
+// CHECK OUT
+// =========================
+
+const handleCheckOut = () => {
+  if (!checkInTime || checkOutTime) {
+    alert("Please Check In first!");
+    return;
+  }
+
+  const now = new Date().toISOString();
+
+  const start = new Date(checkInTime).getTime();
+  const end = new Date(now).getTime();
+
+  const totalSeconds = Math.floor((end - start) / 1000);
+
+  const newSession = {
+    checkIn: checkInTime,
+    checkOut: now,
+    seconds: totalSeconds,
   };
 
-  // =========================
-  // CHECK OUT
-  // =========================
+  const updatedSessions = [
+    ...attendanceSessions,
+    newSession,
+  ];
 
-  const handleCheckOut = () => {
-    if (!checkInTime) {
-      alert("Please Check In first!");
-      return;
-    }
+  setAttendanceSessions(updatedSessions);
 
-    if (checkOutTime) {
-      alert("You are already checked out!");
-      return;
-    }
+  localStorage.setItem(
+    "attendanceSessions",
+    JSON.stringify(updatedSessions)
+  );
 
-    const now = new Date().toISOString();
+  setCheckOutTime(now);
+  setWorkingSeconds(totalSeconds);
 
-    const start = new Date(
-      checkInTime
-    ).getTime();
+  localStorage.setItem("checkOutTime", now);
+  localStorage.setItem(
+    "workingSeconds",
+    totalSeconds
+  );
+};
 
-    const end = new Date(now).getTime();
 
-    const totalSeconds = Math.floor(
-      (end - start) / 1000
-    );
+// =========================
+// STATUS
+// =========================
 
-    setCheckOutTime(now);
+const getStatusText = () => {
 
-    setWorkingSeconds(
-      totalSeconds
-    );
+  if (checkInTime && !checkOutTime) {
+    return "Working";
+  }
 
-    localStorage.setItem(
-      "checkOutTime",
-      now
-    );
+  if (checkInTime && checkOutTime) {
+    return "Present";
+  }
 
-    localStorage.setItem(
-      "workingSeconds",
-      totalSeconds
-    );
-  };
-
-  // =========================
-  // STATUS
-  // =========================
-
-  const getStatusText = () => {
-    if (
-      checkInTime &&
-      !checkOutTime
-    ) {
-      return "Working";
-    }
-
-    if (
-      checkInTime &&
-      checkOutTime
-    ) {
-      return "Present";
-    }
-
-    return "Not Checked In";
-  };
+  return "Not Checked In";
+};
 
   return (
     <div className="attendance-page">
@@ -397,55 +388,7 @@ const formatTopDate = (date) => {
 
         </div>
 
-
-        {/* CHECK IN */}
-
-        <div className="attendance-card">
-
-          <div className="card-icon green">
-            ✓
-          </div>
-
-          <div>
-            <span>Check In</span>
-
-            <strong>
-              {formatTime(checkInTime)}
-            </strong>
-
-            <small>
-              {checkInTime
-                ? "Checked In"
-                : "Not Checked In"}
-            </small>
-          </div>
-
-        </div>
-
-
-        {/* CHECK OUT */}
-
-        <div className="attendance-card">
-
-          <div className="card-icon orange">
-            ↪
-          </div>
-
-          <div>
-            <span>Check Out</span>
-
-            <strong>
-              {formatTime(checkOutTime)}
-            </strong>
-
-            <small>
-              {checkOutTime
-                ? "Checked Out"
-                : "Not Checked Out"}
-            </small>
-          </div>
-
-        </div>
+      
 
 
         {/* WORKING HOURS */}
@@ -508,27 +451,23 @@ const formatTopDate = (date) => {
 
         <div className="check-buttons">
 
-          <button
-            className="check-in"
-            onClick={handleCheckIn}
-            disabled={!!checkInTime}
-          >
-            ✓ Check In
-          </button>
+  <button
+    className="check-in"
+    onClick={handleCheckIn}
+    disabled={!!checkInTime && !checkOutTime}
+  >
+    ✓ Check In
+  </button>
 
-          <button
-            className="check-out"
-            onClick={handleCheckOut}
-            disabled={
-              !checkInTime ||
-              !!checkOutTime
-            }
-          >
-            ↪ Check Out
-          </button>
+  <button
+    className="check-out"
+    onClick={handleCheckOut}
+    disabled={!checkInTime || !!checkOutTime}
+  >
+    ↪ Check Out
+  </button>
 
-        </div>
-
+</div>
       </div>
 
 
@@ -799,110 +738,57 @@ const formatTopDate = (date) => {
             </thead>
 
 
-            <tbody>
+            
+              <tbody>
+  {attendanceSessions.length > 0 ? (
+    attendanceSessions.map((session, index) => (
+      <tr key={index}>
 
-              <tr>
+        <td>
+          {new Date(session.checkIn).toLocaleDateString(
+            "en-IN",
+            {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            }
+          )}
+        </td>
 
-                <td>
-                  {today.toLocaleDateString(
-                    "en-IN",
-                    {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    }
-                  )}
-                </td>
+        <td>
+          <strong>
+            {formatTime(session.checkIn)}
+          </strong>
+        </td>
 
-                <td>
-                  {formatTime(
-                    checkInTime
-                  )}
-                </td>
+        <td>
+          <strong>
+            {formatTime(session.checkOut)}
+          </strong>
+        </td>
 
-                <td>
-                  {formatTime(
-                    checkOutTime
-                  )}
-                </td>
+        <td>
+          {formatWorkingTime(session.seconds)}
+        </td>
 
-                <td>
-                  {formatWorkingTime(
-                    workingSeconds
-                  )}
-                </td>
+        <td>
+          <span className="status present">
+            Present
+          </span>
+        </td>
 
-                <td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="5">
+        No attendance records yet
+      </td>
+    </tr>
+  )}
+</tbody>
 
-                  <span className="status present">
-                    {checkInTime
-                      ? "Present"
-                      : "Not Marked"}
-                  </span>
-
-                </td>
-
-              </tr>
-
-
-              <tr>
-
-                <td>
-                  31 Jul 2026
-                </td>
-
-                <td>
-                  09:10 AM
-                </td>
-
-                <td>
-                  06:05 PM
-                </td>
-
-                <td>
-                  8h 55m
-                </td>
-
-                <td>
-
-                  <span className="status present">
-                    Present
-                  </span>
-
-                </td>
-
-              </tr>
-
-
-              <tr>
-
-                <td>
-                  30 Jul 2026
-                </td>
-
-                <td>
-                  --
-                </td>
-
-                <td>
-                  --
-                </td>
-
-                <td>
-                  --
-                </td>
-
-                <td>
-
-                  <span className="status leave">
-                    Leave
-                  </span>
-
-                </td>
-
-              </tr>
-
-            </tbody>
+              
 
           </table>
 
