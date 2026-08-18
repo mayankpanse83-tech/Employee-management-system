@@ -548,157 +548,116 @@ const getStatusText = () => {
 
         {/* ================= CALENDAR ================= */}
 
-        <div className="calendar-box">
+<div className="calendar-box">
 
-          {/* CALENDAR HEADER */}
+  <div className="calendar-title-row">
 
-          <div className="box-header">
+    <button
+      className="calendar-arrow"
+      onClick={previousMonth}
+    >
+      ‹
+    </button>
 
-            <button
-              className="arrow"
-              onClick={previousMonth}
-            >
-              ‹
-            </button>
+    <h2>
+      {monthNames[currentMonth]} {currentYear}
+    </h2>
 
-            <h2>
-              {monthNames[currentMonth]}{" "}
-              {currentYear}
-            </h2>
+    <button
+      className="calendar-arrow"
+      onClick={nextMonth}
+    >
+      ›
+    </button>
 
-            <button
-              className="arrow"
-              onClick={nextMonth}
-            >
-              ›
-            </button>
-
-          </div>
+  </div>
 
 
-          {/* WEEK DAYS */}
-
-          <div className="week-days">
-
-            <span>Sun</span>
-            <span>Mon</span>
-            <span>Tue</span>
-            <span>Wed</span>
-            <span>Thu</span>
-            <span>Fri</span>
-            <span>Sat</span>
-
-          </div>
+  <div className="calendar-weekdays">
+    <span>Sun</span>
+    <span>Mon</span>
+    <span>Tue</span>
+    <span>Wed</span>
+    <span>Thu</span>
+    <span>Fri</span>
+    <span>Sat</span>
+  </div>
 
 
-          {/* DYNAMIC CALENDAR */}
+  <div className="calendar-grid">
 
-          <div className="calendar">
+    {/* EMPTY DAYS */}
 
-            {/* EMPTY SPACES */}
-
-            {Array.from({
-              length: firstDay,
-            }).map(
-              (_, index) => (
-                <div
-                  key={`empty-${index}`}
-                  className="calendar-empty"
-                />
-              )
-            )}
+    {Array.from({ length: firstDay }).map((_, index) => (
+      <div
+        key={`empty-${index}`}
+        className="calendar-empty"
+      />
+    ))}
 
 
-            {/* DATES */}
+    {/* DATES */}
 
-            {Array.from({
-              length: daysInMonth,
-            }).map(
-              (_, index) => {
+    {Array.from({ length: daysInMonth }).map((_, index) => {
 
-                const day =
-                  index + 1;
+      const day = index + 1;
 
-                const isToday =
-                  day ===
-                    today.getDate() &&
-                  currentMonth ===
-                    today.getMonth() &&
-                  currentYear ===
-                    today.getFullYear();
+      const isToday =
+        day === today.getDate() &&
+        currentMonth === today.getMonth() &&
+        currentYear === today.getFullYear();
 
-                const status =
-                  getDateStatus(day);
+      const status = getDateStatus(day);
 
-                return (
-                  <button
-                    key={day}
-                    className={`
-                      calendar-day
-                      ${status}
-                      ${
-                        selectedDate === day
-                          ? "selected"
-                          : ""
-                      }
-                      ${
-                        isToday
-                          ? "today-date"
-                          : ""
-                      }
-                    `}
-                    onClick={() =>
-                      setSelectedDate(day)
-                    }
-                  >
-                    {day}
-                  </button>
-                );
-              }
-            )}
+      return (
+        <button
+          key={day}
+          type="button"
+          className={`calendar-date ${status} ${
+            selectedDate === day ? "selected" : ""
+          } ${isToday ? "today" : ""}`}
+          onClick={() => setSelectedDate(day)}
+        >
+          {day}
+        </button>
+      );
+    })}
 
-          </div>
+  </div>
 
 
-          {/* SELECTED DATE */}
+  <div className="calendar-selected">
 
-          <div className="selected-date-info">
+    Selected Date:
 
-            Selected Date:
+    <strong>
+      {selectedDate} {monthNames[currentMonth]} {currentYear}
+    </strong>
 
-            <strong>
-              {selectedDate}{" "}
-              {monthNames[currentMonth]}{" "}
-              {currentYear}
-            </strong>
-
-          </div>
+  </div>
 
 
-          {/* LEGEND */}
+  <div className="calendar-legend">
 
-          <div className="legend">
+    <div>
+      <span className="dot present"></span>
+      Present
+    </div>
 
-            <div>
-              <span className="legend-dot present-dot" />
-              Present
-            </div>
+    <div>
+      <span className="dot leave"></span>
+      Leave
+    </div>
 
-            <div>
-              <span className="legend-dot leave-dot" />
-              Leave
-            </div>
+    <div>
+      <span className="dot absent"></span>
+      Absent
+    </div>
 
-            <div>
-              <span className="legend-dot absent-dot" />
-              Absent
-            </div>
+  </div>
 
-          </div>
-
-        </div>
-
-      </div>
+</div>
+</div>
 
 
       {/* ================= LOWER GRID ================= */}
